@@ -1,1 +1,1 @@
-# obbchisluvalni-methody
+# optimization-methods
