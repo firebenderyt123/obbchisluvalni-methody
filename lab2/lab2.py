@@ -5,6 +5,7 @@ def toFixed(num, digits = 2):
 
 def f(x):
     return pow(x, 2)
+    # return 2*pow(x, 2) - 4*x + 16/x
     # return pow(100-x, 2)
     # return math.exp(2-x)+x*math.atan(x)-0.5*math.log10(1+pow(x, 2))
 
