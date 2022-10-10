@@ -36,6 +36,9 @@ if __name__ == '__main__':
 			if p == 0:
 				delta = -delta
 				p = 1
+				Xk_1 = Xk + delta
+				u = f(Xk)
+				v = f(Xk_1)
 			else:
 				a = x0 + delta
 				b = x0 - delta
