@@ -4,10 +4,10 @@ def toFixed(num, digits = 2):
     return f"{num:6.{digits}f}".format(12)
 
 def f(x):
-    return pow(x, 2)
+    # return pow(x, 2)
     # return 2*pow(x, 2) - 4*x + 16/x
     # return pow(100-x, 2)
-    # return math.exp(2-x)+x*math.atan(x)-0.5*math.log10(1+pow(x, 2))
+    return math.exp(2-x)+x*math.atan(x)-0.5*math.log10(1+pow(x, 2))
 
 def calc(a, b, eps):
     L = b - a
@@ -35,5 +35,5 @@ def calc(a, b, eps):
     return xm, f(xm), L
 
 if __name__ == '__main__':
-    x, y, L = calc(-10, 15, 1e-3)
+    x, y, L = calc(0.9, 2.9, 1e-3)
     print('\n\nx:', x, 'y:', y, 'Точність:', L)
