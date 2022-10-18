@@ -49,5 +49,5 @@ if __name__ == '__main__':
 	R = (5 ** 0.5 - 1) / 2
 	# a, b, eps = 1.5, 2.4, 0.1
 	# a, b, eps = -3*math.pi, math.pi, 0.1
-	a, b, eps = 0.9, 2.9, 1e-3
+	# a, b, eps = 0.9, 2.9, 1e-3
 	calc(a, b, eps, R)
