@@ -5,6 +5,7 @@ def func(x):
     # return 2*x**2 - 4*x + 16 / x
     return math.sin(x)
     # return math.exp(2-x)+x*math.atan(x)-0.5*math.log10(1+pow(x, 2))
+    # return 1.5*pow((x+1.5), 2)*(x-1.1)*(x-0.75)
 
 def get_min_index(arr):
     m_min = arr[0]
@@ -67,11 +68,12 @@ def calc(x1, dx, Sx, Sf):
             return qx
         else:
             x[index_max] = qx
-            f[index_max] = func(qx)
+            f[index_max] = f_qx
 
 if __name__ == '__main__':
     # x1, dx, Sx, Sf = 1.5, 0.5, 0.01, 0.001
     x1, dx, Sx, Sf = math.pi, math.pi / 3, 0.01, 0.001
     # x1, dx, Sx, Sf = 0.9, 0.1, 0.01, 0.001
+    # x1, dx, Sx, Sf = -1.55, 0.1, 0.01, 0.001
     result = calc(x1, dx, Sx, Sf)
     print(result)
