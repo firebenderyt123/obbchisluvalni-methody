@@ -31,19 +31,19 @@ def calc(x1, dx, Sx, Sf):
     f = [0, 0, 0] # f1, f2, f3
     x = [x1, 0, 0] # x1, x2, x3
 
+    # step 2
+    x[1] = x[0] + dx
+    f[0] = func(x[0])
+    f[1] = func(x[1])
+
+    # step 3
+    if f[0] > f[1]:
+        x[2] = x[0] + 2 * dx
+    else:
+        x[2] = x[0] - dx
+    f[2] = func(x[2])
+
     while True:
-        # step 2
-        x[1] = x[0] + dx
-        f[0] = func(x[0])
-        f[1] = func(x[1])
-
-        # step 3
-        if f[0] > f[1]:
-            x[2] = x[0] + 2 * dx
-        else:
-            x[2] = x[0] - dx
-        f[2] = func(x[2])
-
         # step 4
         index_min = get_min_index(f)
         index_max = get_max_index(f)
@@ -67,6 +67,7 @@ def calc(x1, dx, Sx, Sf):
             return qx
         else:
             x[index_max] = qx
+            f[index_max] = func(qx)
 
 if __name__ == '__main__':
     # x1, dx, Sx, Sf = 1.5, 0.5, 0.01, 0.001
