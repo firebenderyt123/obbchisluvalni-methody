@@ -14,9 +14,9 @@ def draw_plot(x):
     plt.pause(0.05)
 
 def f(x):
-    return power(x[0], 2) + power(x[1], 2)
+    # return power(x[0], 2) + power(x[1], 2)
     # return power(1-x[0], 2) + power(2-x[1], 2)
-    # return 9 - 25*x[0] + power(x[0], 2) - 22*x[1] + power(x[1], 2)
+    return 9 - 25*x[0] + power(x[0], 2) - 22*x[1] + power(x[1], 2)
     # return power(x[0], 2) + power(x[1], 2) + power(x[2], 2) + power(x[3], 2)
 
 def custom_sort(list_x, list_y):
@@ -95,11 +95,11 @@ def calc(x0, a, sig):
 
     # Сортування
     yr = None
+    prev_y = np.zeros(3) # цифра 3 потому что у нас 3 точки max, after max, min
     _iter = 0
     D = float('inf')
-    not_changed = np.zeros(N+1) # кол-во неизменчивости каждой точки
+    not_changed = np.zeros(3) # кол-во неизменчивости каждой точки
     while D >= sig:
-        prev_y = list_y
         list_x, list_y = custom_sort(list_x, list_y)
         # print('\n', list_x, list_y)
 
@@ -107,7 +107,6 @@ def calc(x0, a, sig):
             print('«Накрытие» точки минимума')
             list_x, list_y = build_simplex(list_x[1], N, p1, p2)
             list_x, list_y = custom_sort(list_x, list_y)
-            prev_y = list_y
 
         prettyTable.add_row([
             _iter,
@@ -138,14 +137,14 @@ def calc(x0, a, sig):
             list_x, list_y, xs, ys = compression(list_x, list_y, xc)
 
         for i, y in enumerate(prev_y):
-            if y == prev_y[i]:
+            if y == list_y[i]:
                 not_changed[i] += 1
                 if not_changed[i] > M:
                     print("Циклическое движение")
                     for i in range(2):
                         list_x[i] = list_x[2] + (list_x[i] - list_x[2]) / 2
                     list_y = f(list_x.T)
-                    not_changed = np.zeros(N+1)
+                    not_changed = np.zeros(3)
                     break
             else:
                 not_changed[i] = 0
@@ -160,6 +159,7 @@ def calc(x0, a, sig):
         # print("List X:", list_x)
         # print("List Y:", list_y)
 
+        prev_y = list_y
         _iter += 1
 
     list_x, list_y = custom_sort(list_x, list_y)
@@ -174,9 +174,9 @@ def calc(x0, a, sig):
     return list_x[2], list_y[2], D
 
 if __name__ == '__main__':
-    x0, a, sig = np.array([100, 100]), 2, 1e-16
+    # x0, a, sig = np.array([100, 100]), 2, 1e-16
     # x0, a, sig = np.array([0, 0]), 2, 1e-16
-    # x0, a, sig = np.array([0, 1]), 2, 1e-16
+    x0, a, sig = np.array([0, 1]), 2, 1e-16
     # x0, a, sig = np.array([100, 50, 50, 10]), 2, 1e-16
     result = calc(x0, a, sig)
     print(result)
