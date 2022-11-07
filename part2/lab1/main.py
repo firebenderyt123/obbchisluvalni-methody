@@ -10,13 +10,13 @@ def draw_plot(x):
     ax.scatter(x[:, 0], x[:, 1], s = 1)
     t1 = plt.Polygon(x[:3,:])
     plt.gca().add_patch(t1)
-    ax.axis([-20, 120, -20, 120])
+    ax.axis([-20, 100, -5, 60])
     plt.pause(0.05)
 
 def f(x):
-    # return power(x[0], 2) + power(x[1], 2)
+    return power(x[0], 2) + power(x[1], 2)
     # return power(1-x[0], 2) + power(2-x[1], 2)
-    return 9 - 25*x[0] + power(x[0], 2) - 22*x[1] + power(x[1], 2)
+    # return 9 - 25*x[0] + power(x[0], 2) - 22*x[1] + power(x[1], 2)
 
 def custom_sort(list_x, list_y):
     '''
@@ -101,17 +101,19 @@ def calc(x0, a, sig):
         prev_y = list_y
         list_x, list_y = custom_sort(list_x, list_y)
         # print('\n', list_x, list_y)
+
+        if yr == list_y[0]:
+            print('«Накрытие» точки минимума')
+            list_x, list_y = build_simplex(list_x[1], N, p1, p2)
+            list_x, list_y = custom_sort(list_x, list_y)
+            prev_y = list_y
+
         prettyTable.add_row([
             _iter,
             list_x[0], list_x[1], list_x[2],
             list_y[0], list_y[1], list_y[2],
             D
         ])
-
-        if yr == list_y[0]:
-            print('«Накрытие» точки минимума')
-            list_x, list_y = build_simplex(list_x[1], N, p1, p2)
-            prev_y = list_y
 
         xc = 1/N * np.sum(list_x[1:], axis=0)
         xr = 2 * xc - list_x[0]
@@ -171,8 +173,8 @@ def calc(x0, a, sig):
     return list_x[2], list_y[2], D
 
 if __name__ == '__main__':
-    # x0, a, sig = np.array([100, 50]), 2, 1e-16
+    x0, a, sig = np.array([100, 50]), 2, 1e-16
     # x0, a, sig = np.array([0, 0]), 2, 1e-16
-    x0, a, sig = np.array([0, 1]), 2, 1e-16
+    # x0, a, sig = np.array([0, 1]), 2, 1e-16
     result = calc(x0, a, sig)
     print(result)
