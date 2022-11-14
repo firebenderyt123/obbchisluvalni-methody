@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots()
 
+comp_count = 0
+
 def draw_plot(x):
     ax.cla()
     ax.scatter(x[:, 0], x[:, 1], s = 1)
@@ -16,8 +18,9 @@ def draw_plot(x):
 def f(x):
     # return power(x[0], 2) + power(x[1], 2)
     # return power(1-x[0], 2) + power(2-x[1], 2)
-    return 9 - 25*x[0] + power(x[0], 2) - 22*x[1] + power(x[1], 2)
+    # return 9 - 25*x[0] + power(x[0], 2) - 22*x[1] + power(x[1], 2)
     # return power(x[0], 2) + power(x[1], 2) + power(x[2], 2) + power(x[3], 2)
+    return 1/10*power(x[1], 2) + 10*power(x[1], 2)
 
 def custom_sort(list_x, list_y):
     '''
@@ -63,6 +66,9 @@ def compression(list_x, list_y, xc):
     '''
     return list_x, list_y, xs, ys
     '''
+    global comp_count
+    comp_count += 1
+    print('Compression count:', comp_count)
     xs = 0.5 * list_x[0] + 0.5 * xc
     ys = f(xs)
     if ys < list_y[0]:
@@ -176,7 +182,8 @@ def calc(x0, a, sig):
 if __name__ == '__main__':
     # x0, a, sig = np.array([100, 100]), 2, 1e-16
     # x0, a, sig = np.array([0, 0]), 2, 1e-16
-    x0, a, sig = np.array([0, 1]), 2, 1e-16
+    # x0, a, sig = np.array([0, 1]), 2, 1e-16
     # x0, a, sig = np.array([100, 50, 50, 10]), 2, 1e-16
+    x0, a, sig = np.array([100, 100]), 2, 1e-16
     result = calc(x0, a, sig)
     print(result)
