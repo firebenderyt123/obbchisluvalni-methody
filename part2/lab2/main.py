@@ -1,26 +1,18 @@
 from prettytable import PrettyTable
 import numpy as np
-from numpy import sqrt, power
-import matplotlib.pyplot as plt
-
-fig, ax = plt.subplots()
+from numpy import power
 
 def f(x):
     # return power(x[0], 2) + power(x[1], 2)
     # return 8*power(x[0], 2) + 4*x[0]*x[1] + 5*power(x[1], 2)
-    # return 4 * (x[0] - 5)**2 + (x[1] - 6)**2
-    return 9 - 25*x[0] + power(x[0], 2) - 22*x[1] + power(x[1], 2)
+    return 4 * (x[0] - 5)**2 + (x[1] - 6)**2
+    # return 9 - 25*x[0] + power(x[0], 2) - 22*x[1] + power(x[1], 2)
 
 def isStop(dx, eps):
 	return 1 if abs(dx[0]) < eps else 0
 	# return np.prod([1 if abs(dxi) < eps else 0 for dxi in dx])
 
 def research(x, f_x, dx, a, eps, n):
-	'''
-	return index of result and x, y, dx
-	1 - good
-	0 - min
-	'''
 	for i in range(n):
 		tmp_x1 = np.array(x, copy=True, dtype='f')
 		tmp_x1[i] += dx[i]
@@ -38,12 +30,6 @@ def research(x, f_x, dx, a, eps, n):
 				print('Успіх', f'x[{i}] = {x[i]}')
 			else:
 				print('Не Успіх', f'x[{i}] = {x[i]}')
-	# if isStop(dx, eps):
-	# 	print(tmp_x1, tmp_x2, tmp_f1, tmp_f2)
-	# 	return 0, x, f_x, dx # we've found min
-	# else:
-	# 	dx = dx / a
-	# 	return research(tmp_x2, tmp_f2, dx, a, eps, n)
 	return x, f(x)
 
 def calc(x0, dx, a, eps):
@@ -108,7 +94,7 @@ def calc(x0, dx, a, eps):
 if __name__ == '__main__':
 	# x0, dx, a, eps = np.array([1, 1], dtype='f'), np.array([-1, 1], dtype='f'), 2, 10e-4
 	# x0, dx, a, eps = np.array([-4, -4], dtype='f'), np.array([-1, 1], dtype='f'), 2, 10e-4
-	# x0, dx, a, eps = np.array([8, 9], dtype='f'), np.array([-1, 1], dtype='f'), 2, 10e-4
-	x0, dx, a, eps = np.array([0, 1], dtype='f'), np.array([-1, 1], dtype='f'), 2, 10e-4
+	x0, dx, a, eps = np.array([8, 9], dtype='f'), np.array([-1, 1], dtype='f'), 2, 10e-4
+	# x0, dx, a, eps = np.array([0, 1], dtype='f'), np.array([-1, 1], dtype='f'), 2, 10e-4
 	x, f_x = calc(x0, dx, a, eps)
 	print('Min:', x, f_x)
